@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>碎片轮播图1920*1280</title>
+</head>
+<style>
+  body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container{
+    width: 960px;
+    height: 640px;
+    position: relative;
+  }
+  .item{
+    width: 48px;
+    height: 32px;
+    transform-style: preserve-3d;
+    position: absolute;
+  }
+  .zheng{
+    background-image: url(./img/1.jpg);
+    width: 48px;
+    height: 32px;
+    position: absolute;
+    background-size: 960px 640px;
+  }
+  .fan{
+    background-image: url(./img/2.jpg);
+    width: 48px;
+    height: 32px;
+    position: absolute;
+    transform: rotateY(180deg);
+    background-size: 960px 640px;
+  }
+</style>
+<body>
+  <div class="container">
+   
+  </div>
+
+<script>
+  let container = document.querySelector('.container')
+  
+  let rows = 960/96
+  let cols = 640/64
+
+  for(let i = 0;i < 20;i++){
+    for(let j = 0;j < 20;j++){
+      let item = document.createElement('div')
+      item.className = 'item'
+      item.style.left = `${48*i}px`
+      item.style.top = `${32*j}px`
+      item.style.transition = `all .5s linear ${(i+j)*0.1}s`
+      container.appendChild(item)
+      let zheng = document.createElement('div')
+      zheng.className = 'zheng'
+      zheng.style.backgroundPosition = `${-48*i}px ${-32*j}px`
+      item.appendChild(zheng)
+      let fan = document.createElement('div')
+      fan.className = 'fan'
+      fan.style.backgroundPosition = `${-48*i}px ${-32*j}px`
+      item.appendChild(fan)
+    }
+  }
+  let count = 1
+  setInterval(()=>{
+    let items = document.querySelectorAll('.item')
+    items.forEach(it => {
+      it.style.transform = `rotateY(${(count%2)*180}deg)`
+    })
+    count++
+  },6000)
+</script>
+</body>
+</html>
